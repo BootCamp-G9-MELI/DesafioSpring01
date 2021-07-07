@@ -11,7 +11,7 @@ import java.util.List;
 public class FollowerService {
 
 
-    private FollowerRepository followerRepository;
+    private final FollowerRepository followerRepository;
 
     @Autowired
     public FollowerService(FollowerRepository followerRepository){
