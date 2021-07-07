@@ -1,4 +1,4 @@
-package br.com.meli.socialmeli.sevice;
+package br.com.meli.socialmeli.service;
 
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.UserRepository;
