@@ -1,4 +1,6 @@
 package br.com.meli.socialmeli.controller;
+import br.com.meli.socialmeli.dto.UserFollowedDTO;
+import br.com.meli.socialmeli.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.meli.socialmeli.dto.UserFollowerDTO;
 import br.com.meli.socialmeli.dto.UserListFollowerDTO;
 import br.com.meli.socialmeli.entity.User;
-import br.com.meli.socialmeli.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+   
     private final UserService userService;
     
     @Autowired
@@ -25,6 +27,11 @@ public class UserController {
 	}
 
 
+	@GetMapping("/{userId}/followed/list")
+    public ResponseEntity<UserFollowedDTO> getFollowers(@PathVariable long userId){
+    	UserFollowedDTO  userAndFollowed = userService.getFollowerByUser(userId);
+        return new ResponseEntity<UserFollowedDTO>(userAndFollowed,HttpStatus.OK);
+	}
 
 	@GetMapping("/{userId}/followers/list")
     public ResponseEntity<UserListFollowerDTO> getFollowersByUserId(@PathVariable long userId){

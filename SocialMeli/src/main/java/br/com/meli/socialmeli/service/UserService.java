@@ -1,6 +1,5 @@
 package br.com.meli.socialmeli.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.meli.socialmeli.dto.UserFollowedDTO;
 import br.com.meli.socialmeli.dto.UserFollowerDTO;
 import br.com.meli.socialmeli.dto.UserListFollowerDTO;
 import br.com.meli.socialmeli.entity.Follower;
@@ -21,12 +21,13 @@ public class UserService {
 	
     private final UserRepository userRepository;
     private final FollowerService followerService;
-
+    
     @Autowired
-    public UserService(FollowerService followerService,UserRepository userRepository){
-        this.followerService = followerService;
-        this.userRepository = userRepository;
-    }
+    public UserService(UserRepository userRepository, FollowerService followerService) {
+		super();
+		this.userRepository = userRepository;
+		this.followerService = followerService;
+	}
 
 	public User getUserById(long id){
         List<User> users = userRepository.getList();
@@ -42,6 +43,20 @@ public class UserService {
         List<Follower> followersOfUser = followerService.getFollowersListOfId(id);
         return new UserFollowerDTO(user.getid(), user.getUsername(), followersOfUser.size());
     }
+
+	public UserFollowedDTO getFollowerByUser(long userId) {
+		
+		List<Follower> listFollowed = followerService.getListFollower();
+		List <User> listUser = new ArrayList<User>(); 
+		
+		for (Follower f : listFollowed) {
+			if(f.getFollower() == userId) {
+				listUser.add(getUserById(f.getFollowed()));
+			}
+		}		
+		return UserFollowedDTO.convert(getUserById(userId), listUser);
+		
+	}
 
     public Boolean setFollower(long userId, long userIdToFollow){
         Follower followHasClass = new Follower(userIdToFollow,userId);
