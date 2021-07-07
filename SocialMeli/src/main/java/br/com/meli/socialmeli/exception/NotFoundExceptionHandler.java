@@ -1,4 +1,3 @@
-
 package br.com.meli.socialmeli.exception;
 
 import org.springframework.http.HttpStatus;
