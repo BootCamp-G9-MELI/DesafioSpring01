@@ -18,9 +18,9 @@ public class UserService {
     private final FollowerService followerService;
 
     @Autowired
-    public UserService(UserRepository userRepository, FollowerService followerService) {
-        this.userRepository = userRepository;
+    public UserService(FollowerService followerService,UserRepository userRepository){
         this.followerService = followerService;
+        this.userRepository = userRepository;
     }
 
     public User getUserById(long id){
@@ -36,6 +36,26 @@ public class UserService {
         User user = getUserById(id);
         List<Follower> followersOfUser = followerService.getFollowersListOfId(id);
         return new UserFollowerDTO(user.getid(), user.getUsername(), followersOfUser.size());
+    }
+
+    public Boolean setFollower(long userId, long userIdToFollow){
+        Follower followHasClass = new Follower(userIdToFollow,userId);
+        List<Follower> followers = this.followerService.getListFollower();
+
+        // Caso não exista nenhum usuário
+        User user = this.getUserById(userId);
+        User userToFollow = this.getUserById(userIdToFollow);
+        if( user == null || userToFollow == null){
+            return false;
+        }
+
+        //Caso já exista o vinculo entre esses dois usuários
+        if( followers.stream().anyMatch(follower -> follower.getFollower() == userId && follower.getFollowed() == userIdToFollow) ){
+            return true;
+        }
+
+        this.followerService.addFollower(followHasClass);
+        return true;
     }
 
 

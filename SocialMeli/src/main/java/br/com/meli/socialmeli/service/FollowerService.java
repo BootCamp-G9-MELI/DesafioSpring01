@@ -11,12 +11,24 @@ import java.util.stream.Collectors;
 @Service
 public class FollowerService {
 
+    private final FollowerRepository followerRepository;
+
     @Autowired
-    private FollowerRepository followerRepository;
+    public FollowerService(FollowerRepository followerRepository){
+        this.followerRepository = followerRepository;
+    }
 
     public List<Follower> getFollowersListOfId(long userId) {
         List<Follower> followers = followerRepository.getList();
         return followers.stream()
                 .filter(follower -> follower.getFollowed() == userId).collect(Collectors.toList());
+    }
+
+    public List<Follower> getListFollower(){
+        return followerRepository.getList();
+    }
+
+    public void addFollower(Follower follower){
+        this.followerRepository.add(follower);
     }
 }
