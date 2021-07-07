@@ -69,5 +69,16 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Post{" +
+				"id=" + id +
+				", date=" + date +
+				", detail=" + detail +
+				", category='" + category + '\'' +
+				", price=" + price +
+				", user=" + user +
+				'}';
+	}
 }

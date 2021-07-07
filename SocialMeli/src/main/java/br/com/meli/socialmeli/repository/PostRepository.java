@@ -15,8 +15,12 @@ public class PostRepository {
 
     private static final File FILE = new File("post.json");
 
+    private final ObjectMapper mapper;
+
     @Autowired
-    private ObjectMapper mapper;
+    public PostRepository(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public List<Post> getList(){
         List<Post> posts = new ArrayList<>();
