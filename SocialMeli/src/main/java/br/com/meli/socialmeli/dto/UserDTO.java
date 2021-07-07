@@ -3,38 +3,24 @@ package br.com.meli.socialmeli.dto;
 import br.com.meli.socialmeli.entity.User;
 
 public class UserDTO {
+		
+    private long id;
+    private String username;
 
-	private long userId;
-	private String userName;
-	
-	public UserDTO(long userId, String userName) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-	}
+    public UserDTO(long id, String username) {
+        this.id = id;
+        this.username = username;
+    }
 
-	public long getUserId() {
-		return userId;
-	}
+    public UserDTO() {
+    }
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+    public UserDTO(User user) {
+        this.id = user.getid();
+        this.username = user.getUsername();
+    }
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public static UserDTO convert(User user) {
-		return new UserDTO(user.getid(), user.getUsername());
-	}
-	
-	
-	
-	
-	
+    public static UserDTO converte(User user) {
+        return new UserDTO(user.getid(), user.getUsername());
+    }
 }

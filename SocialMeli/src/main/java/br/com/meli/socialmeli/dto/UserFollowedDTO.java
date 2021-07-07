@@ -43,7 +43,7 @@ public class UserFollowedDTO {
 	}
 	
 	public static UserFollowedDTO convert(User mainUser, List<User> userFollowed) {
-		List<UserDTO> lstFollowed =  userFollowed.stream().map(p -> UserDTO.convert(p)).collect(Collectors.toList());
+		List<UserDTO> lstFollowed =  userFollowed.stream().map(p -> UserDTO.converte(p)).collect(Collectors.toList());
 		return new UserFollowedDTO(mainUser.getid(), mainUser.getUsername(), lstFollowed);
 	}
 	
