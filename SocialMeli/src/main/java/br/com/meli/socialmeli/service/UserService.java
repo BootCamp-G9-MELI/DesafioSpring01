@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.meli.socialmeli.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,24 +59,18 @@ public class UserService {
 		
 	}
 
-    public Boolean setFollower(long userId, long userIdToFollow){
+    public void setFollower(long userId, long userIdToFollow){
         Follower followHasClass = new Follower(userIdToFollow,userId);
         List<Follower> followers = this.followerService.getListFollower();
 
-        // Caso não exista nenhum usuário
-        User user = this.getUserById(userId);
-        User userToFollow = this.getUserById(userIdToFollow);
-        if( user == null || userToFollow == null){
-            return false;
-        }
+        this.getUserById(userId);
+        this.getUserById(userIdToFollow);
 
-        //Caso já exista o vinculo entre esses dois usuários
         if( followers.stream().anyMatch(follower -> follower.getFollower() == userId && follower.getFollowed() == userIdToFollow) ){
-            return true;
+            throw new BadRequestException("Você já segue esse usuário.");
+        } else {
+            this.followerService.addFollower(followHasClass);
         }
-
-        this.followerService.addFollower(followHasClass);
-        return true;
     }
 
     public UserListFollowerDTO getUserListFollowers(long idUser) {

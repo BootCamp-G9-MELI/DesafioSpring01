@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-    ProductService productService;
-    PostService postService;
+    private final ProductService productService;
+    private final PostService postService;
 
     @Autowired
     public ProductController(ProductService productService, PostService postService) {
@@ -27,11 +27,7 @@ public class ProductController {
 
     @PostMapping("/newpost")
     public ResponseEntity<Post> newPost(@RequestBody NewPostDTO newPostDTO){
-        try{
-            postService.newPost(newPostDTO);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        postService.newPost(newPostDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
