@@ -1,19 +1,24 @@
 package br.com.meli.socialmeli.service;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.meli.socialmeli.dto.UserFollowerDTO;
+import br.com.meli.socialmeli.dto.UserListFollowerDTO;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.exception.NotFoundException;
 import br.com.meli.socialmeli.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
-
+    
+	
     private final UserRepository userRepository;
     private final FollowerService followerService;
 
@@ -23,7 +28,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUserById(long id){
+	public User getUserById(long id){
         List<User> users = userRepository.getList();
         Optional<User> userOptional= users.stream().filter(user -> user.getid() == id).findFirst();
         if(userOptional.isPresent()) {
@@ -58,5 +63,14 @@ public class UserService {
         return true;
     }
 
+    public UserListFollowerDTO getUserListFollowers(long idUser) {
+    	List<User> followers = new ArrayList<>();
+    	User user = getUserById(idUser);
+   
+    	followerService.getFollowersListOfId(idUser).stream().forEach(follower -> followers.add(getUserById(follower.getFollower())));
+    	UserListFollowerDTO userDTO = new UserListFollowerDTO(user,followers);
+    	
+    	return userDTO;
+    }
 
 }
