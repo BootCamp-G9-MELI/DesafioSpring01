@@ -7,12 +7,12 @@ public class Post {
 
 	private long id;
 	private LocalDate date;
-	private String detail;
+	private Product detail;
 	private String category;
 	private BigDecimal price;
 	private User user;
 	
-	public Post(long id, LocalDate date, String detail, String category, BigDecimal price, User user) {
+	public Post(long id, LocalDate date, Product detail, String category, BigDecimal price, User user) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -38,11 +38,11 @@ public class Post {
 		this.date = date;
 	}
 
-	public String getDetail() {
+	public Product getDetail() {
 		return detail;
 	}
 
-	public void setDetail(String detail) {
+	public void setDetail(Product detail) {
 		this.detail = detail;
 	}
 
