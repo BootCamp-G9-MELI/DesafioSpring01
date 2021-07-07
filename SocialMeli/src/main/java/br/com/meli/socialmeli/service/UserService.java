@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private FollowerService followerService;
+    private final UserRepository userRepository;
+    private final FollowerService followerService;
     
     @Autowired
     public UserService(UserRepository userRepository, FollowerService followerService) {

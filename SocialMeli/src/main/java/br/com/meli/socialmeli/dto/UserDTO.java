@@ -2,12 +2,12 @@ package br.com.meli.socialmeli.dto;
 
 import br.com.meli.socialmeli.entity.User;
 
-public class SimpleUserDTO {
+public class UserDTO {
 
 	private long userId;
 	private String userName;
 	
-	public SimpleUserDTO(long userId, String userName) {
+	public UserDTO(long userId, String userName) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -29,8 +29,8 @@ public class SimpleUserDTO {
 		this.userName = userName;
 	}
 
-	public static SimpleUserDTO convert(User user) {
-		return new SimpleUserDTO(user.getid(), user.getUsername());
+	public static UserDTO convert(User user) {
+		return new UserDTO(user.getid(), user.getUsername());
 	}
 	
 	

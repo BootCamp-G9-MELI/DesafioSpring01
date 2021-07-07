@@ -11,8 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FollowerService {
 
+    private final FollowerRepository followerRepository;
+
     @Autowired
-    private FollowerRepository followerRepository;
+	public FollowerService(FollowerRepository followerRepository) {
+		super();
+		this.followerRepository = followerRepository;
+	}
+
+
 
 
 	public List<Follower> getList() {

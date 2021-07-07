@@ -9,9 +9,9 @@ public class UserFollowedDTO {
 
 	private long userId;
 	private String userName;
-	private List <SimpleUserDTO> followed;
+	private List <UserDTO> followed;
 	
-	public UserFollowedDTO(long userId, String userName, List <SimpleUserDTO> followed) {
+	public UserFollowedDTO(long userId, String userName, List <UserDTO> followed) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -34,16 +34,16 @@ public class UserFollowedDTO {
 		this.userName = userName;
 	}
 
-	public List <SimpleUserDTO> getFollowed() {
+	public List <UserDTO> getFollowed() {
 		return followed;
 	}
 
-	public void setFollowed(List <SimpleUserDTO> followed) {
+	public void setFollowed(List <UserDTO> followed) {
 		this.followed = followed;
 	}
 	
 	public static UserFollowedDTO convert(User mainUser, List<User> userFollowed) {
-		List<SimpleUserDTO> lstFollowed =  userFollowed.stream().map(p -> SimpleUserDTO.convert(p)).collect(Collectors.toList());
+		List<UserDTO> lstFollowed =  userFollowed.stream().map(p -> UserDTO.convert(p)).collect(Collectors.toList());
 		return new UserFollowedDTO(mainUser.getid(), mainUser.getUsername(), lstFollowed);
 	}
 	
