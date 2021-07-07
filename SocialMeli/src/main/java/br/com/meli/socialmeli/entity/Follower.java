@@ -4,7 +4,15 @@ public class Follower {
 
 	private long followed;
 	private long follower;
-	
+
+	public Follower(long followed, long follower) {
+		this.followed = followed;
+		this.follower = follower;
+	}
+	public Follower(){
+
+	}
+
 	public long getFollowed() {
 		return followed;
 	}
