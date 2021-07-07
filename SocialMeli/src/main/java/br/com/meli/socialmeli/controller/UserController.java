@@ -3,6 +3,8 @@ package br.com.meli.socialmeli.controller;
 import br.com.meli.socialmeli.dto.UserFollowerDTO;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.User;
+import br.com.meli.socialmeli.repository.FollowerRepository;
+import br.com.meli.socialmeli.repository.UserRepository;
 import br.com.meli.socialmeli.service.FollowerService;
 import br.com.meli.socialmeli.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<UserFollowerDTO> countUserFollowers(@PathVariable long userId) {

@@ -13,11 +13,14 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final FollowerService followerService;
 
     @Autowired
-    private FollowerService followerService;
+    public UserService(UserRepository userRepository, FollowerService followerService) {
+        this.userRepository = userRepository;
+        this.followerService = followerService;
+    }
 
     public User getUserById(long id){
         List<User> users = userRepository.getList();
