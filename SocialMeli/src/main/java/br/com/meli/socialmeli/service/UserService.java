@@ -45,11 +45,11 @@ public class UserService {
     }
 
 	public UserFollowedDTO getFollowedByUser(long userId, String order) {
-		List <User> listUser = new ArrayList<>();
+		    List <User> listUser = new ArrayList<>();
         User user = getUserById(userId);
         followerService.getFollowedListById(userId).forEach(follower -> listUser.add(getUserById(follower.getFollowed())));
         orderUserByName(listUser, order);
-		return UserFollowedDTO.convert(user, listUser);
+		    return UserFollowedDTO.convert(user, listUser);
 	}
 
     public UserFollowersDTO getUserFollowers(long userId, String order) {
@@ -86,5 +86,20 @@ public class UserService {
                 break;
         }
     }
+
+    public void setUnFollower(long userId, long userIdToUnfollow){
+        Follower followHasClass = new Follower(userIdToUnfollow,userId);
+        List<Follower> followers = this.followerService.getListFollower();
+
+        this.getUserById(userId);
+        this.getUserById(userIdToUnfollow);
+
+        if( followers.stream().anyMatch(follower -> follower.getFollower() == userId && follower.getFollowed() == userIdToUnfollow) ){
+            this.followerService.removeFollower(followHasClass);
+        } else {
+            throw new BadRequestException("Você ainda não segue esse usuário.");
+        }
+    }
+
 
 }
