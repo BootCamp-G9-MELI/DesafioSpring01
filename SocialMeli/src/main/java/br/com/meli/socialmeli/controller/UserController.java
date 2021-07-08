@@ -4,11 +4,7 @@ import br.com.meli.socialmeli.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.meli.socialmeli.dto.UserFollowerDTO;
 import br.com.meli.socialmeli.dto.UserListFollowerDTO;
@@ -28,14 +24,16 @@ public class UserController {
 
 
 	@GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> getFollowers(@PathVariable long userId){
-    	UserFollowedDTO  userAndFollowed = userService.getFollowerByUser(userId);
+    public ResponseEntity<UserFollowedDTO> getFollowers(@PathVariable long userId,
+                                                        @RequestParam(defaultValue = "name_asc") String order){
+    	UserFollowedDTO userAndFollowed = userService.getFollowerByUser(userId, order);
         return new ResponseEntity<>(userAndFollowed,HttpStatus.OK);
 	}
 
 	@GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserListFollowerDTO> getFollowersByUserId(@PathVariable long userId){
-    	UserListFollowerDTO userDTO = userService.getUserListFollowers(userId);
+    public ResponseEntity<UserListFollowerDTO> getFollowersByUserId(@PathVariable long userId,
+                                                                    @RequestParam(defaultValue = "name_asc") String order){
+    	UserListFollowerDTO userDTO = userService.getUserListFollowers(userId, order);
     	return new ResponseEntity<>(userDTO,HttpStatus.OK);
 	}
 

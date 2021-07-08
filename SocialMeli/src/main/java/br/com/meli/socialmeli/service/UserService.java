@@ -1,10 +1,9 @@
 package br.com.meli.socialmeli.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import br.com.meli.socialmeli.exception.BadRequestException;
+import br.com.meli.socialmeli.util.SortUserByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,16 +44,13 @@ public class UserService {
         return new UserFollowerDTO(user.getid(), user.getUsername(), followersOfUser.size());
     }
 
-	public UserFollowedDTO getFollowerByUser(long userId) {
+	public UserFollowedDTO getFollowerByUser(long userId, String order) {
 		
 		List<Follower> listFollowed = followerService.getListFollower();
-		List <User> listUser = new ArrayList<User>(); 
-		
-		for (Follower f : listFollowed) {
-			if(f.getFollower() == userId) {
-				listUser.add(getUserById(f.getFollowed()));
-			}
-		}		
+		List <User> listUser = new ArrayList<>();
+		listFollowed.stream().filter(follower -> follower.getFollower() == userId)
+                .forEach(follower -> listUser.add(getUserById(follower.getFollowed())));
+        orderUserByName(listUser, order);
 		return UserFollowedDTO.convert(getUserById(userId), listUser);
 		
 	}
@@ -73,14 +69,26 @@ public class UserService {
         }
     }
 
-    public UserListFollowerDTO getUserListFollowers(long idUser) {
+    public UserListFollowerDTO getUserListFollowers(long idUser, String order) {
     	List<User> followers = new ArrayList<>();
     	User user = getUserById(idUser);
    
-    	followerService.getFollowersListOfId(idUser).stream().forEach(follower -> followers.add(getUserById(follower.getFollower())));
-    	UserListFollowerDTO userDTO = new UserListFollowerDTO(user,followers);
-    	
-    	return userDTO;
+    	followerService.getFollowersListOfId(idUser).forEach(follower -> followers.add(getUserById(follower.getFollower())));
+        orderUserByName(followers, order);
+    	return new UserListFollowerDTO(user,followers);
+    }
+
+    private void orderUserByName(List<User> users, String order) {
+        switch (order) {
+            case "name_asc":
+                users.sort(new SortUserByName());
+                break;
+            case "name_desc":
+                users.sort(new SortUserByName().reversed());
+                break;
+            default:
+                break;
+        }
     }
 
 }
