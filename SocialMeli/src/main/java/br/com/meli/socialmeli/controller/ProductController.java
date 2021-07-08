@@ -31,7 +31,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/{userId}/list/")
+    @GetMapping("/{userId}/list")
     public ResponseEntity<PostListPromoDTO> getListPromoPost(@PathVariable long userId) {
         PostListPromoDTO promoPostList = postService.getList(userId);
         return new ResponseEntity<>(promoPostList, HttpStatus.OK);
