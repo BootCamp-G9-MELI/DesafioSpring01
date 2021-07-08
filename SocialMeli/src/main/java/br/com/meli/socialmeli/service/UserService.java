@@ -83,4 +83,19 @@ public class UserService {
     	return userDTO;
     }
 
+    public void setUnFollower(long userId, long userIdToUnfollow){
+        Follower followHasClass = new Follower(userIdToUnfollow,userId);
+        List<Follower> followers = this.followerService.getListFollower();
+
+        this.getUserById(userId);
+        this.getUserById(userIdToUnfollow);
+
+        if( followers.stream().anyMatch(follower -> follower.getFollower() == userId && follower.getFollowed() == userIdToUnfollow) ){
+            this.followerService.removeFollower(followHasClass);
+        } else {
+            throw new BadRequestException("Você ainda não segue esse usuário.");
+        }
+    }
+
+
 }
