@@ -17,8 +17,12 @@ public class UserRepository {
 
     private static final File FILE = new File("user.json");
 
+    private final ObjectMapper mapper;
+
     @Autowired
-    private ObjectMapper mapper;
+    public UserRepository(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public List<User> getList(){
         List<User> users = new ArrayList<>();

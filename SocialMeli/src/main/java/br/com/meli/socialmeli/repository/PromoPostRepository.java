@@ -22,8 +22,12 @@ public class PromoPostRepository {
 
 	private static final File FILE = new File("postPromo.json");
 
+    private final ObjectMapper mapper;
+
     @Autowired
-    private ObjectMapper mapper;
+    public PromoPostRepository(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public List<PromoPost> getList(){
         List<PromoPost> promoPosts = new ArrayList<>();

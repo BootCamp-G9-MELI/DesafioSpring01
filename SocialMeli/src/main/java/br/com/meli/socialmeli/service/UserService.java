@@ -1,12 +1,9 @@
 package br.com.meli.socialmeli.service;
-
 import java.util.*;
-
 import br.com.meli.socialmeli.exception.BadRequestException;
 import br.com.meli.socialmeli.util.SortUserByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.meli.socialmeli.dto.UserFollowedDTO;
 import br.com.meli.socialmeli.dto.UserFollowersCountDTO;
 import br.com.meli.socialmeli.dto.UserFollowersDTO;
@@ -17,8 +14,7 @@ import br.com.meli.socialmeli.repository.UserRepository;
 
 @Service
 public class UserService {
-    
-	
+
     private final UserRepository userRepository;
     private final FollowerService followerService;
     
@@ -45,11 +41,11 @@ public class UserService {
     }
 
 	public UserFollowedDTO getFollowedByUser(long userId, String order) {
-		    List <User> listUser = new ArrayList<>();
+        List <User> listUser = new ArrayList<>();
         User user = getUserById(userId);
         followerService.getFollowedListById(userId).forEach(follower -> listUser.add(getUserById(follower.getFollowed())));
         orderUserByName(listUser, order);
-		    return UserFollowedDTO.convert(user, listUser);
+        return UserFollowedDTO.convert(user, listUser);
 	}
 
     public UserFollowersDTO getUserFollowers(long userId, String order) {

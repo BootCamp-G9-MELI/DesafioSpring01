@@ -19,22 +19,16 @@ import br.com.meli.socialmeli.dto.UserPromoPostCountDTO;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.entity.PromoPost;
 import br.com.meli.socialmeli.service.PostService;
-import br.com.meli.socialmeli.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService productService;
     private final PostService postService;
 
     @Autowired
-    public ProductController(ProductService productService, PostService postService) {
-        this.productService = productService;
+    public ProductController(PostService postService) {
+        super();
         this.postService = postService;
     }
 
@@ -61,12 +55,6 @@ public class ProductController {
     public ResponseEntity<PromoPost> newPromoPost(@RequestBody NewPromoPostDTO newPromoPostDTO){
     	  postService.newPromoPost(newPromoPostDTO);
     	  return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostsFromFollowedDTO> postsFromFollowedLastTwoWeeks(@PathVariable Long userId) {
-        PostsFromFollowedDTO postList = postService.postsFromFollowedLastTwoWeeks(userId);
-        return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/countPromo")

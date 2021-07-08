@@ -1,11 +1,9 @@
 package br.com.meli.socialmeli.service;
-
 import br.com.meli.socialmeli.dto.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.meli.socialmeli.entity.Follower;
@@ -15,7 +13,7 @@ import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.PostRepository;
 import br.com.meli.socialmeli.repository.PromoPostRepository;
 import java.util.stream.Collectors;
-import br.com.meli.socialmeli.utils.PostComparator;
+import br.com.meli.socialmeli.util.PostComparator;
 
 @Service
 public class PostService {
@@ -34,7 +32,6 @@ public class PostService {
         this.followerService = followerService;
     }
 
-
     public void newPost(NewPostDTO newPostDTO) {
         User user = userService.getUserById(newPostDTO.getUserId());
         Long postId = (long) postRepository.getList().size()+1;
@@ -43,7 +40,7 @@ public class PostService {
     }
 
     public List<PromoPost> getListPromoPostById(long id){
-        return promoPostRepository.getList().stream().filter(promoPost -> promoPost.getId() == id).collect(Collectors.toList());
+        return promoPostRepository.getList().stream().filter(promoPost -> promoPost.getUser().getid() == id).collect(Collectors.toList());
     }
 
     public PostListPromoDTO getList(long id) {

@@ -15,11 +15,23 @@ public class UserPromoPostCountDTO {
         return userId;
     }
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public int getPromoProductsCount() {
         return promoProductsCount;
+    }
+
+    public void setPromoProductsCount(int promoProductsCount) {
+        this.promoProductsCount = promoProductsCount;
     }
 }

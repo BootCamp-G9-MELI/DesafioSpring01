@@ -1,10 +1,8 @@
 package br.com.meli.socialmeli.service;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.repository.FollowerRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +46,4 @@ public class FollowerService {
         return followerList.stream()
                 .filter(f -> f.getFollower() == userId).collect(Collectors.toList());
     }
-  
 }

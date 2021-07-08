@@ -1,4 +1,4 @@
-package br.com.meli.socialmeli.utils;
+package br.com.meli.socialmeli.util;
 
 import java.util.Comparator;
 

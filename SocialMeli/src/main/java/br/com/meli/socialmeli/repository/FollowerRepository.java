@@ -22,8 +22,12 @@ public class FollowerRepository {
 
     private static final File FILE = new File("follower.json");
 
+    private final ObjectMapper mapper;
+
     @Autowired
-    private ObjectMapper mapper;
+    public FollowerRepository(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public List<Follower> getList(){
         List<Follower> followers = new ArrayList<>();

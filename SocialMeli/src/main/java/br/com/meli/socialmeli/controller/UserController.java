@@ -22,7 +22,6 @@ public class UserController {
 		this.userService = userService;
 	}
 
-
 	@GetMapping("/{userId}/followed/list")
     public ResponseEntity<UserFollowedDTO> getFollowedByUser(@PathVariable long userId,
                                                              @RequestParam(defaultValue = "name_asc") String order){
