@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import br.com.meli.socialmeli.entity.Product;
 
 public class NewPromoPostDTO extends NewPostDTO{
+
 	private boolean hasPromo;
 	private BigDecimal discount;
 
@@ -29,7 +30,5 @@ public class NewPromoPostDTO extends NewPostDTO{
 	public void setDiscount(BigDecimal discount) {
 		this.discount = discount;
 	}
-	
-	
 
 }

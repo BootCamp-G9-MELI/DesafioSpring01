@@ -7,13 +7,13 @@ import br.com.meli.socialmeli.entity.PromoPost;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.PostRepository;
 import br.com.meli.socialmeli.repository.PromoPostRepository;
-import br.com.meli.socialmeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -32,11 +32,22 @@ public class PostService {
         this.followerService = followerService;
     }
 
+
     public void newPost(NewPostDTO newPostDTO) {
         User user = userService.getUserById(newPostDTO.getUserId());
         Long postId = (long) postRepository.getList().size()+1;
         Post post = NewPostDTO.convert(user, postId, newPostDTO);
         postRepository.add(post);
+    }
+
+    public List<PromoPost> getListPromoPostById(long id){
+        return promoPostRepository.getList().stream().filter(promoPost -> promoPost.getId() == id).collect(Collectors.toList());
+    }
+
+    public PostListPromoDTO getList(long id) {
+        User user = userService.getUserById(id);
+        List<PromoPost> promotionalPosts = getListPromoPostById(id);
+        return new PostListPromoDTO(user.getid(), user.getUsername(), promotionalPosts);
     }
     
     public void newPromoPost(NewPromoPostDTO newPromoPostDTO) {
@@ -80,6 +91,7 @@ public class PostService {
 
     public UserPromoPostCountDTO getCountPromoPostsOfUser(long userId) {
         User user = userService.getUserById(userId);
-        return null;
+        List<PromoPost> promoPostsOfUser = getListPromoPostById(userId);
+        return new UserPromoPostCountDTO(user.getid(), user.getUsername(), promoPostsOfUser.size());
     }
 }

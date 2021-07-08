@@ -14,7 +14,6 @@ public class Post {
 	private User user;
 	
 	
-	
 	public Post() {
 		super();
 	}
@@ -29,23 +28,21 @@ public class Post {
 		this.user = user;
 	}
 
-	public long getId() {
-		return id;
-	}
-	
-	
-
 	public Post(long id, String date, Product detail, String category, BigDecimal price, User user) {
 		super();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-LL-yyyy");
-        LocalDate dateContverted = LocalDate.parse(date, formatter);
-        
+		LocalDate dateContverted = LocalDate.parse(date, formatter);
+
 		this.id = id;
 		this.date = dateContverted;
 		this.detail = detail;
 		this.category = category;
 		this.price = price;
 		this.user = user;
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public void setId(long id) {
