@@ -51,4 +51,10 @@ public class UserController {
         return new ResponseEntity<>(this.userService.getUserById(userId),HttpStatus.OK);
     }
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<User> userUnFollow(@PathVariable long userId, @PathVariable long userIdToUnfollow){
+        this.userService.setUnFollower(userId,userIdToUnfollow);
+        return new ResponseEntity<>(this.userService.getUserById(userId),HttpStatus.OK);
+    }
+
 }
