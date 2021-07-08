@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"id":1,"date":"2021-06-29","detail":{"id":1,"name":"Cadeira Gamer","type":"Gamer","brand":"Racer","color":"Red & Black","notes":"Special Edition"},"category":"100","price":1500.50,"user":{"id":1,"username":"cduer0"},"hasPromo":true,"discount":0.25}]
+=======
+[{"id":1,"date":"2021-06-29","detail":{"id":1,"name":"Cadeira Gamer","type":"Gamer","brand":"Racer","color":"Red & Black","notes":"Special Edition"},"category":"100","price":1500.50,"user":{"id":1,"username":"cduer0"},"hasPromo":true,"discount":0.25}]
+>>>>>>> master

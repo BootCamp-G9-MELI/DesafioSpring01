@@ -1,5 +1,7 @@
 package br.com.meli.socialmeli.entity;
 
+import java.util.Objects;
+
 public class Follower {
 
 	private long followed;
@@ -28,7 +30,12 @@ public class Follower {
 	public void setFollower(long follower) {
 		this.follower = follower;
 	}
-	
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Follower follower1 = (Follower) o;
+		return followed == follower1.followed && follower == follower1.follower;
+	}
 }

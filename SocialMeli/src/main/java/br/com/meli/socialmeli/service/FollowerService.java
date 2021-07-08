@@ -23,7 +23,12 @@ public class FollowerService {
         List<Follower> followers = followerRepository.getList();
         return followers.stream()
                 .filter(follower -> follower.getFollowed() == userId).collect(Collectors.toList());
+    }
 
+    public List<Follower> getFollowedListById(long userId) {
+        List<Follower> followers = followerRepository.getList();
+        return followers.stream()
+                .filter(follower -> follower.getFollower() == userId).collect(Collectors.toList());
     }
 
     public List<Follower> getListFollower(){
@@ -33,4 +38,15 @@ public class FollowerService {
     public void addFollower(Follower follower){
         this.followerRepository.add(follower);
     }
+
+    public void removeFollower(Follower follower){
+        this.followerRepository.remove(follower);
+    }
+  
+    public List<Follower> getFollowedByUserId(long userId) {
+        List<Follower> followerList = followerRepository.getList();
+        return followerList.stream()
+                .filter(f -> f.getFollower() == userId).collect(Collectors.toList());
+    }
+  
 }

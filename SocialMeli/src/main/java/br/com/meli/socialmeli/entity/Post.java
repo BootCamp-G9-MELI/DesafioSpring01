@@ -12,11 +12,12 @@ public class Post {
 	private String category;
 	private BigDecimal price;
 	private User user;
-
-	public Post(){
-
-	}
 	
+	
+	public Post() {
+		super();
+	}
+
 	public Post(long id, LocalDate date, Product detail, String category, BigDecimal price, User user) {
 		super();
 		this.id = id;
