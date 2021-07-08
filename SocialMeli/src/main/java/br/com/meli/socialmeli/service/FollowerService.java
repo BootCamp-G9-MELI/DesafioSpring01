@@ -33,4 +33,10 @@ public class FollowerService {
     public void addFollower(Follower follower){
         this.followerRepository.add(follower);
     }
+
+    public List<Follower> getFollowedByUserId(long userId) {
+        List<Follower> followerList = followerRepository.getList();
+        return followerList.stream()
+                .filter(f -> f.getFollower() == userId).collect(Collectors.toList());
+    }
 }
