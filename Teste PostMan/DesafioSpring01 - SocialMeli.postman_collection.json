@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4c61bb87-c6d0-4b7a-9ba0-fab911e2f7d4",
+		"_postman_id": "8121a07e-2eef-4150-8cd1-aadc7589bebd",
 		"name": "DesafioSpring01 - SocialMeli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,16 +11,16 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/1/follow/8",
+					"raw": "localhost:8080/users/9/follow/4",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1",
+						"9",
 						"follow",
-						"8"
+						"4"
 					]
 				}
 			},
@@ -32,7 +32,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/5/followers/count/",
+					"raw": "http://localhost:8080/users/1/followers/count/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -40,7 +40,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"5",
+						"1",
 						"followers",
 						"count",
 						""
@@ -55,7 +55,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/11/followers/list",
+					"raw": "http://localhost:8080/users/7/followers/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -63,7 +63,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"11",
+						"7",
 						"followers",
 						"list"
 					]
@@ -77,7 +77,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/8/followed/list",
+					"raw": "http://localhost:8080/users/9/followed/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -85,7 +85,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"8",
+						"9",
 						"followed",
 						"list"
 					]
@@ -100,7 +100,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 1,\n    \"date\" : \"29-04-2021\",\n    \"detail\" : {\n        \"id\": 1,\n        \"name\" : \"Cadeira Gamer\",\n        \"type\" : \"Gamer\",\n        \"brand\" : \"Racer\",\n        \"color\" : \"Red & Black\",\n        \"notes\" : \"Special Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 1500.50\n}",
+					"raw": "{\n    \"userId\": 9,\n    \"date\" : \"15-02-2021\",\n    \"detail\" : {\n        \"id\": 1,\n        \"name\" : \"Cadeira Gamer\",\n        \"type\" : \"Gamer\",\n        \"brand\" : \"Racer\",\n        \"color\" : \"Red & Black\",\n        \"notes\" : \"Special Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 1500.50\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -128,7 +128,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/products/followed/7/list",
+					"raw": "http://localhost:8080/products/followed/4/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -137,7 +137,7 @@
 					"path": [
 						"products",
 						"followed",
-						"7",
+						"4",
 						"list"
 					]
 				}
@@ -147,19 +147,19 @@
 		{
 			"name": "US 0007: Ser capaz de realizar a ação de “Deixar de seguir” (parar de seguir) um determinado vendedor.",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/1/follow/8",
+					"raw": "localhost:8080/users/9/unfollow/4",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1",
-						"follow",
-						"8"
+						"9",
+						"unfollow",
+						"4"
 					]
 				}
 			},
@@ -171,7 +171,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/1/followers/list?order=name_asc",
+					"raw": "http://localhost:8080/users/1/followers/list?order=name_asc&order=name_desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -187,74 +187,15 @@
 						{
 							"key": "order",
 							"value": "name_asc"
+						},
+						{
+							"key": "order",
+							"value": "name_desc"
 						}
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "US 0008: Ordem alfabética decrescente",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/1/followers/list?order=name_asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"1",
-								"followers",
-								"list"
-							],
-							"query": [
-								{
-									"key": "order",
-									"value": "name_asc"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "US 0008: Ordem alfabética crescente",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/1/followers/list?order=name_asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"1",
-								"followers",
-								"list"
-							],
-							"query": [
-								{
-									"key": "order",
-									"value": "name_asc"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "US 0009: Classificar por data crescente e decrescente",
@@ -262,7 +203,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/products/followed/3/list?order=date_desc",
+					"raw": "localhost:8080/products/followed/3/list?order=date_desc&order=date_asc",
 					"host": [
 						"localhost"
 					],
@@ -277,36 +218,15 @@
 						{
 							"key": "order",
 							"value": "date_desc"
+						},
+						{
+							"key": "order",
+							"value": "date_asc"
 						}
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "US 0009: Classificar por data decrescente",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "US 0009: Classificar por data crescente",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "US 0010: Realizar a publicação de um novo produto promocional",
@@ -315,7 +235,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"userId\":1,\n   \"date\":\"29-06-2021\",\n   \"detail\":{\n      \"id\":1,\n      \"name\":\"Cadeira Gamer\",\n      \"type\":\"Gamer\",\n      \"brand\":\"Racer\",\n      \"color\":\"Red & Black\",\n      \"notes\":\"Special Edition\"\n   },\n   \"category\":\"100\",\n   \"price\":1500.50,\n   \"hasPromo\":true,\n   \"discount\":0.25\n}",
+					"raw": "{\n   \"userId\":10,\n   \"date\":\"10-08-2021\",\n   \"detail\":{\n      \"id\":1,\n      \"name\":\"Cadeira Gamer\",\n      \"type\":\"Gamer\",\n      \"brand\":\"Racer\",\n      \"color\":\"Red & Black\",\n      \"notes\":\"Special Edition\"\n   },\n   \"category\":\"100\",\n   \"price\":1500.50,\n   \"hasPromo\":true,\n   \"discount\":0.25\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -341,7 +261,19 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://localhost:8080/products/10/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"10",
+						"countPromo"
+					]
+				}
 			},
 			"response": []
 		},
@@ -351,7 +283,55 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/products/10/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"10",
+						"list"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0013: Ordenação do PostPromo por nome do produto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/products/1/list?order=name_desc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc"
+						},
+						{
+							"key": "order",
+							"value": "name_asc",
+							"disabled": true
+						}
+					]
 				}
 			},
 			"response": []
