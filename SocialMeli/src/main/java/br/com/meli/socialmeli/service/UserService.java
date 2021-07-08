@@ -48,7 +48,7 @@ public class UserService {
 	public UserFollowedDTO getFollowerByUser(long userId) {
 		
 		List<Follower> listFollowed = followerService.getListFollower();
-		List <User> listUser = new ArrayList<User>(); 
+		List <User> listUser = new ArrayList<>(); 
 		
 		for (Follower f : listFollowed) {
 			if(f.getFollower() == userId) {

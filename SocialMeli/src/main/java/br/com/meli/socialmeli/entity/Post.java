@@ -2,6 +2,7 @@ package br.com.meli.socialmeli.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Post {
 
@@ -12,6 +13,12 @@ public class Post {
 	private BigDecimal price;
 	private User user;
 	
+	
+	
+	public Post() {
+		super();
+	}
+
 	public Post(long id, LocalDate date, Product detail, String category, BigDecimal price, User user) {
 		super();
 		this.id = id;
@@ -24,6 +31,21 @@ public class Post {
 
 	public long getId() {
 		return id;
+	}
+	
+	
+
+	public Post(long id, String date, Product detail, String category, BigDecimal price, User user) {
+		super();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-LL-yyyy");
+        LocalDate dateContverted = LocalDate.parse(date, formatter);
+        
+		this.id = id;
+		this.date = dateContverted;
+		this.detail = detail;
+		this.category = category;
+		this.price = price;
+		this.user = user;
 	}
 
 	public void setId(long id) {
