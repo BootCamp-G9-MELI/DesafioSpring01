@@ -1,9 +1,6 @@
 package br.com.meli.socialmeli.service;
 
-import br.com.meli.socialmeli.dto.NewPostDTO;
-import br.com.meli.socialmeli.dto.NewPromoPostDTO;
-import br.com.meli.socialmeli.dto.PostFromFollowedDTO;
-import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
+import br.com.meli.socialmeli.dto.*;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.entity.PromoPost;
@@ -79,5 +76,10 @@ public class PostService {
                         .forEach(postListFromFollowedLastTwoWeeks::add));
 
         return postListFromFollowedLastTwoWeeks;
+    }
+
+    public UserPromoPostCountDTO getCountPromoPostsOfUser(long userId) {
+        User user = userService.getUserById(userId);
+        return null;
     }
 }

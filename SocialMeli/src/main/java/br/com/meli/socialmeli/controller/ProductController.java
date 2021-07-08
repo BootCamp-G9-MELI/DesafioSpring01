@@ -3,6 +3,7 @@ package br.com.meli.socialmeli.controller;
 import br.com.meli.socialmeli.dto.NewPostDTO;
 import br.com.meli.socialmeli.dto.NewPromoPostDTO;
 import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
+import br.com.meli.socialmeli.dto.UserPromoPostCountDTO;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.entity.PromoPost;
 import br.com.meli.socialmeli.service.PostService;
@@ -42,5 +43,11 @@ public class ProductController {
     public ResponseEntity<PostsFromFollowedDTO> postsFromFollowedLastTwoWeeks(@PathVariable Long userId) {
         PostsFromFollowedDTO postList = postService.postsFromFollowedLastTwoWeeks(userId);
         return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo/")
+    public ResponseEntity<UserPromoPostCountDTO> countPromoPostsOfUser(@PathVariable long userId) {
+        UserPromoPostCountDTO countPromoPostOfUser = postService.getCountPromoPostsOfUser(userId);
+        return new ResponseEntity<>(countPromoPostOfUser, HttpStatus.OK);
     }
 }
