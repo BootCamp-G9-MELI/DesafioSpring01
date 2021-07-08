@@ -1,5 +1,13 @@
 package br.com.meli.socialmeli.service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.meli.socialmeli.dto.NewPostDTO;
 import br.com.meli.socialmeli.dto.PostFromFollowedDTO;
 import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
@@ -7,21 +15,7 @@ import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.PostRepository;
-import br.com.meli.socialmeli.repository.UserRepository;
 import br.com.meli.socialmeli.utils.PostComparator;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PostService {

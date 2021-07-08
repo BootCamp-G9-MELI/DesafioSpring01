@@ -44,7 +44,7 @@ public class ProductController {
 
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostsFromFollowedDTO> postsFromFollowedLastTwoWeeks(
-            @PathVariable Long userId, @RequestParam(defaultValue = "post_asc") String order) {
+            @PathVariable Long userId, @RequestParam(defaultValue = "date_desc") String order) {
         PostsFromFollowedDTO postList = postService.postsFromFollowedLastTwoWeeks(userId, order);
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
