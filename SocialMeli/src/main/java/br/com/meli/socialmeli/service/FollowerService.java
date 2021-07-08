@@ -33,4 +33,8 @@ public class FollowerService {
     public void addFollower(Follower follower){
         this.followerRepository.add(follower);
     }
+
+    public void removeFollower(Follower follower){
+        this.followerRepository.remove(follower);
+    }
 }
