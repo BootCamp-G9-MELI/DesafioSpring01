@@ -38,12 +38,8 @@ public class PostService {
     
     public void newPromoPost(NewPromoPostDTO newPromoPostDTO) {
     		User user = userService.getUserById(newPromoPostDTO.getUserId());
-    		System.err.println(newPromoPostDTO.getDiscount());
     		PromoPost promoPost = new PromoPost(newPromoPostDTO, user);
     		promoPost.setId(promoPostRepository.getList().size()+1);
-    		System.out.println(promoPost.toString());
     		promoPostRepository.add(promoPost);
-    		
-    		
     }
 }

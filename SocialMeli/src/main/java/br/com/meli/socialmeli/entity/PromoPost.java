@@ -10,8 +10,6 @@ public class PromoPost extends Post{
 	private boolean hasPromo;
 	private BigDecimal discount;
 	
-	
-	
 	public PromoPost() {
 		super();
 	}
@@ -19,7 +17,7 @@ public class PromoPost extends Post{
 
 	public PromoPost(long id, LocalDate date, Product detail, String category, BigDecimal price, User user, boolean promo, BigDecimal discount) {
 		super(id, date, detail, category, price, user);
-		// TODO Auto-generated constructor stub
+		
 		this.hasPromo = hasPromo;
 		this.discount = discount;
 	}
