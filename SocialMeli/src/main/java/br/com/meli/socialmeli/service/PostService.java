@@ -1,23 +1,21 @@
 package br.com.meli.socialmeli.service;
 
-import br.com.meli.socialmeli.dto.NewPostDTO;
-import br.com.meli.socialmeli.dto.NewPromoPostDTO;
-import br.com.meli.socialmeli.dto.PostListPromoDTO;
-import br.com.meli.socialmeli.dto.PostFromFollowedDTO;
-import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
+import br.com.meli.socialmeli.dto.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.entity.PromoPost;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.PostRepository;
 import br.com.meli.socialmeli.repository.PromoPostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
+import br.com.meli.socialmeli.utils.PostComparator;
 
 @Service
 public class PostService {
@@ -54,17 +52,30 @@ public class PostService {
         return new PostListPromoDTO(user.getid(), user.getUsername(), promotionalPosts);
     }
     
+    public void orderPost(List<Post> posts,String order) {
+    	switch (order) {
+    	case "date_desc":
+    		posts.sort(new PostComparator());
+    		break;
+    	case "date_asc":
+    		posts.sort(new PostComparator().reversed());
+    		break;
+    	default:
+    		break;
+    	}   
+    }
+    
     public void newPromoPost(NewPromoPostDTO newPromoPostDTO) {
-    		User user = userService.getUserById(newPromoPostDTO.getUserId());
-    		PromoPost promoPost = new PromoPost(newPromoPostDTO, user);
-    		promoPost.setId(promoPostRepository.getList().size()+1);
-    		promoPostRepository.add(promoPost);
+    	User user = userService.getUserById(newPromoPostDTO.getUserId());
+    	PromoPost promoPost = new PromoPost(newPromoPostDTO, user);
+    	promoPost.setId(promoPostRepository.getList().size()+1);
+    	promoPostRepository.add(promoPost);
     }
 
-    public PostsFromFollowedDTO postsFromFollowedLastTwoWeeks(Long userId) {
+    public PostsFromFollowedDTO postsFromFollowedLastTwoWeeks(Long userId, String order) {
         User user = userService.getUserById(userId);
         List<Follower> listOfFollowed = followerService.getFollowedByUserId(user.getid());
-        List<Post> listOfFollowedPostsLastTwoWeeks = this.getPostsOfFollowedLastTwoWeeks(listOfFollowed);
+        List<Post> listOfFollowedPostsLastTwoWeeks = this.getPostsOfFollowedLastTwoWeeks(listOfFollowed, order);
         List<PostFromFollowedDTO> postFromFollowedDTOList = new ArrayList<>();
 
         listOfFollowedPostsLastTwoWeeks
@@ -74,7 +85,7 @@ public class PostService {
         return PostsFromFollowedDTO.convert(user.getid(), postFromFollowedDTOList);
     }
 
-    private List<Post> getPostsOfFollowedLastTwoWeeks(List<Follower> listOfFollowed) {
+    private List<Post> getPostsOfFollowedLastTwoWeeks(List<Follower> listOfFollowed, String order) {
         List<Post> postList = postRepository.getList();
         List<Post> postListFromFollowedLastTwoWeeks = new ArrayList<>();
         LocalDate today = LocalDate.now();
@@ -89,7 +100,14 @@ public class PostService {
                             return false;
                         })
                         .forEach(postListFromFollowedLastTwoWeeks::add));
-
+        
+        orderPost(postListFromFollowedLastTwoWeeks, order);
         return postListFromFollowedLastTwoWeeks;
+    }
+
+    public UserPromoPostCountDTO getCountPromoPostsOfUser(long userId) {
+        User user = userService.getUserById(userId);
+        List<PromoPost> promoPostsOfUser = getListPromoPostById(userId);
+        return new UserPromoPostCountDTO(user.getid(), user.getUsername(), promoPostsOfUser.size());
     }
 }
