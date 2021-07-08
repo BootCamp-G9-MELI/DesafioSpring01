@@ -51,4 +51,16 @@ public class FollowerRepository {
         }
     }
 
+    public void remove(Follower follower){
+        try {
+            List<Follower> followers = getList();
+            followers.remove(follower);
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(FILE)));
+            mapper.writeValue(out, followers);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.meli.socialmeli.dto.NewPostDTO;
+import br.com.meli.socialmeli.dto.NewPromoPostDTO;
 import br.com.meli.socialmeli.dto.PostFromFollowedDTO;
 import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.Post;
+import br.com.meli.socialmeli.entity.PromoPost;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.PostRepository;
+import br.com.meli.socialmeli.repository.PromoPostRepository;
 import br.com.meli.socialmeli.utils.PostComparator;
 
 @Service
@@ -22,12 +25,15 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserService userService;
+    private final PromoPostRepository promoPostRepository;
     private final FollowerService followerService;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserService userService, FollowerService followerService) {
+    public PostService(PostRepository postRepository, UserService userService, 
+                       PromoPostRepository promoPostRepository, FollowerService followerService) {
         this.postRepository = postRepository;
         this.userService = userService;
+        this.promoPostRepository = promoPostRepository;
         this.followerService = followerService;
     }
 
@@ -49,6 +55,13 @@ public class PostService {
     	default:
     		break;
     	}   
+    }
+    
+    public void newPromoPost(NewPromoPostDTO newPromoPostDTO) {
+    	User user = userService.getUserById(newPromoPostDTO.getUserId());
+    	PromoPost promoPost = new PromoPost(newPromoPostDTO, user);
+    	promoPost.setId(promoPostRepository.getList().size()+1);
+    	promoPostRepository.add(promoPost);
     }
 
     public PostsFromFollowedDTO postsFromFollowedLastTwoWeeks(Long userId, String order) {

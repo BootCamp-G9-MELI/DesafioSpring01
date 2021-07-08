@@ -4,14 +4,10 @@ import br.com.meli.socialmeli.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.meli.socialmeli.dto.UserFollowerDTO;
-import br.com.meli.socialmeli.dto.UserListFollowerDTO;
+import br.com.meli.socialmeli.dto.UserFollowersCountDTO;
+import br.com.meli.socialmeli.dto.UserFollowersDTO;
 import br.com.meli.socialmeli.entity.User;
 
 @RestController
@@ -28,26 +24,34 @@ public class UserController {
 
 
 	@GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> getFollowers(@PathVariable long userId){
-    	UserFollowedDTO  userAndFollowed = userService.getFollowerByUser(userId);
-        return new ResponseEntity<>(userAndFollowed,HttpStatus.OK);
+    public ResponseEntity<UserFollowedDTO> getFollowedByUser(@PathVariable long userId,
+                                                             @RequestParam(defaultValue = "name_asc") String order){
+    	UserFollowedDTO userFollowedDTO = userService.getFollowedByUser(userId, order);
+        return new ResponseEntity<>(userFollowedDTO, HttpStatus.OK);
 	}
 
 	@GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserListFollowerDTO> getFollowersByUserId(@PathVariable long userId){
-    	UserListFollowerDTO userDTO = userService.getUserListFollowers(userId);
-    	return new ResponseEntity<>(userDTO,HttpStatus.OK);
+    public ResponseEntity<UserFollowersDTO> getFollowersByUserId(@PathVariable long userId,
+                                                                 @RequestParam(defaultValue = "name_asc") String order){
+    	UserFollowersDTO userFollowersDTO = userService.getUserFollowers(userId, order);
+    	return new ResponseEntity<>(userFollowersDTO, HttpStatus.OK);
 	}
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<UserFollowerDTO> countUserFollowers(@PathVariable long userId) {
-        UserFollowerDTO userFollowersCount = userService.getFollowersCountOfUser(userId);
+    public ResponseEntity<UserFollowersCountDTO> countUserFollowers(@PathVariable long userId) {
+        UserFollowersCountDTO userFollowersCount = userService.getFollowersCountOfUser(userId);
         return new ResponseEntity<>(userFollowersCount, HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<User> userFollow(@PathVariable long userId, @PathVariable long userIdToFollow){
         this.userService.setFollower(userId,userIdToFollow);
+        return new ResponseEntity<>(this.userService.getUserById(userId),HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<User> userUnFollow(@PathVariable long userId, @PathVariable long userIdToUnfollow){
+        this.userService.setUnFollower(userId,userIdToUnfollow);
         return new ResponseEntity<>(this.userService.getUserById(userId),HttpStatus.OK);
     }
 
