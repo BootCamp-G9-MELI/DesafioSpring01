@@ -1,6 +1,7 @@
 package br.com.meli.socialmeli.controller;
 
 import br.com.meli.socialmeli.dto.NewPostDTO;
+import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.exception.BadRequestException;
 import br.com.meli.socialmeli.service.PostService;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -38,16 +42,10 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@GetMapping("followed/{userId}/list")
-	public ResponseEntity<List<Post>> getOrdPost(@PathVariable long userId, @RequestParam String order){
-		List<Post> lstPost = null;
-		if(order.equals("date_asc")) {
-			lstPost = postService.getPostOrd(false);
-		} else if (order.equals("date_desc")){
-			lstPost = postService.getPostOrd(true);
-		} else {
-			// Usar controller implementada na US0006
-		}
-        return new ResponseEntity<>(lstPost,HttpStatus.OK);
-	}
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<PostsFromFollowedDTO> postsFromFollowedLastTwoWeeks(
+            @PathVariable Long userId, @RequestParam(defaultValue = "post_asc") String order) {
+        PostsFromFollowedDTO postList = postService.postsFromFollowedLastTwoWeeks(userId, order);
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
 }
