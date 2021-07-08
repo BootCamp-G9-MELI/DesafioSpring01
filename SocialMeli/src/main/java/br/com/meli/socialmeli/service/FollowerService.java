@@ -23,7 +23,12 @@ public class FollowerService {
         List<Follower> followers = followerRepository.getList();
         return followers.stream()
                 .filter(follower -> follower.getFollowed() == userId).collect(Collectors.toList());
+    }
 
+    public List<Follower> getFollowedListById(long userId) {
+        List<Follower> followers = followerRepository.getList();
+        return followers.stream()
+                .filter(follower -> follower.getFollower() == userId).collect(Collectors.toList());
     }
 
     public List<Follower> getListFollower(){

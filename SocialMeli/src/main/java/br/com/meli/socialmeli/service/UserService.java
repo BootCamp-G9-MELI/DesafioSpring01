@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.meli.socialmeli.dto.UserFollowedDTO;
-import br.com.meli.socialmeli.dto.UserFollowerDTO;
-import br.com.meli.socialmeli.dto.UserListFollowerDTO;
+import br.com.meli.socialmeli.dto.UserFollowersCountDTO;
+import br.com.meli.socialmeli.dto.UserFollowersDTO;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.exception.NotFoundException;
@@ -38,22 +38,27 @@ public class UserService {
         throw new NotFoundException("Usuário não encontrado");
     }
 
-    public UserFollowerDTO getFollowersCountOfUser(long id) {
+    public UserFollowersCountDTO getFollowersCountOfUser(long id) {
         User user = getUserById(id);
         List<Follower> followersOfUser = followerService.getFollowersListOfId(id);
-        return new UserFollowerDTO(user.getid(), user.getUsername(), followersOfUser.size());
+        return new UserFollowersCountDTO(user.getid(), user.getUsername(), followersOfUser.size());
     }
 
-	public UserFollowedDTO getFollowerByUser(long userId, String order) {
-		
-		List<Follower> listFollowed = followerService.getListFollower();
+	public UserFollowedDTO getFollowedByUser(long userId, String order) {
 		List <User> listUser = new ArrayList<>();
-		listFollowed.stream().filter(follower -> follower.getFollower() == userId)
-                .forEach(follower -> listUser.add(getUserById(follower.getFollowed())));
+        User user = getUserById(userId);
+        followerService.getFollowedListById(userId).forEach(follower -> listUser.add(getUserById(follower.getFollowed())));
         orderUserByName(listUser, order);
-		return UserFollowedDTO.convert(getUserById(userId), listUser);
-		
+		return UserFollowedDTO.convert(user, listUser);
 	}
+
+    public UserFollowersDTO getUserFollowers(long userId, String order) {
+        List<User> listUser = new ArrayList<>();
+        User user = getUserById(userId);
+        followerService.getFollowersListOfId(userId).forEach(follower -> listUser.add(getUserById(follower.getFollower())));
+        orderUserByName(listUser, order);
+        return new UserFollowersDTO(user, listUser);
+    }
 
     public void setFollower(long userId, long userIdToFollow){
         Follower followHasClass = new Follower(userIdToFollow,userId);
@@ -67,15 +72,6 @@ public class UserService {
         } else {
             this.followerService.addFollower(followHasClass);
         }
-    }
-
-    public UserListFollowerDTO getUserListFollowers(long idUser, String order) {
-    	List<User> followers = new ArrayList<>();
-    	User user = getUserById(idUser);
-   
-    	followerService.getFollowersListOfId(idUser).forEach(follower -> followers.add(getUserById(follower.getFollower())));
-        orderUserByName(followers, order);
-    	return new UserListFollowerDTO(user,followers);
     }
 
     private void orderUserByName(List<User> users, String order) {

@@ -4,31 +4,26 @@ import java.util.List;
 
 import br.com.meli.socialmeli.entity.User;
 
-public class UserListFollowerDTO {
+public class UserFollowersDTO {
 	private long id;
 	private String username;
 	private List<User> followers;
 	
-	public UserListFollowerDTO() {
-		
+	public UserFollowersDTO() {
 	}
-	
-	
 
-	public UserListFollowerDTO(long id, String username, List<User> followers) {
+	public UserFollowersDTO(long id, String username, List<User> followers) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.followers = followers;
 	}
 	
-	public UserListFollowerDTO(User user, List<User> followers) {
+	public UserFollowersDTO(User user, List<User> followers) {
 		this.id = user.getid();
 		this.username = user.getUsername();
 		this.followers = followers;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -53,9 +48,5 @@ public class UserListFollowerDTO {
 	public void setFollowers(List<User> followers) {
 		this.followers = followers;
 	}
-	
-	
 
-	
-	
 }
