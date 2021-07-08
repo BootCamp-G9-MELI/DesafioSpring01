@@ -15,11 +15,11 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.meli.socialmeli.entity.Product;
 import br.com.meli.socialmeli.entity.PromoPost;
 
 @Repository
 public class PromoPostRepository {
+
 	private static final File FILE = new File("postPromo.json");
 
     @Autowired
@@ -33,7 +33,6 @@ public class PromoPostRepository {
             promoPosts = mapper.readValue(is, typeReference);
             is.close();
         } catch (IOException e) {
-        	
             e.printStackTrace();
         }
 
@@ -48,7 +47,6 @@ public class PromoPostRepository {
             mapper.writeValue(out, promoPosts);
             out.close();
         } catch (IOException e) {
-        	
             e.printStackTrace();
         }
     }

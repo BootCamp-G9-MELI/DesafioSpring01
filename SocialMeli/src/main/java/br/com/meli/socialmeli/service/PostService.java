@@ -1,5 +1,6 @@
 package br.com.meli.socialmeli.service;
 
+import br.com.meli.socialmeli.dto.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -7,17 +8,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import br.com.meli.socialmeli.dto.NewPostDTO;
-import br.com.meli.socialmeli.dto.NewPromoPostDTO;
-import br.com.meli.socialmeli.dto.PostFromFollowedDTO;
-import br.com.meli.socialmeli.dto.PostsFromFollowedDTO;
 import br.com.meli.socialmeli.entity.Follower;
 import br.com.meli.socialmeli.entity.Post;
 import br.com.meli.socialmeli.entity.PromoPost;
 import br.com.meli.socialmeli.entity.User;
 import br.com.meli.socialmeli.repository.PostRepository;
 import br.com.meli.socialmeli.repository.PromoPostRepository;
+import java.util.stream.Collectors;
 import br.com.meli.socialmeli.utils.PostComparator;
 
 @Service
@@ -37,11 +34,22 @@ public class PostService {
         this.followerService = followerService;
     }
 
+
     public void newPost(NewPostDTO newPostDTO) {
         User user = userService.getUserById(newPostDTO.getUserId());
         Long postId = (long) postRepository.getList().size()+1;
         Post post = NewPostDTO.convert(user, postId, newPostDTO);
         postRepository.add(post);
+    }
+
+    public List<PromoPost> getListPromoPostById(long id){
+        return promoPostRepository.getList().stream().filter(promoPost -> promoPost.getId() == id).collect(Collectors.toList());
+    }
+
+    public PostListPromoDTO getList(long id) {
+        User user = userService.getUserById(id);
+        List<PromoPost> promotionalPosts = getListPromoPostById(id);
+        return new PostListPromoDTO(user.getid(), user.getUsername(), promotionalPosts);
     }
     
     public void orderPost(List<Post> posts,String order) {
@@ -95,5 +103,11 @@ public class PostService {
         
         orderPost(postListFromFollowedLastTwoWeeks, order);
         return postListFromFollowedLastTwoWeeks;
+    }
+
+    public UserPromoPostCountDTO getCountPromoPostsOfUser(long userId) {
+        User user = userService.getUserById(userId);
+        List<PromoPost> promoPostsOfUser = getListPromoPostById(userId);
+        return new UserPromoPostCountDTO(user.getid(), user.getUsername(), promoPostsOfUser.size());
     }
 }

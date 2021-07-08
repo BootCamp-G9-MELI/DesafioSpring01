@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import br.com.meli.socialmeli.dto.NewPromoPostDTO;
 
 public class PromoPost extends Post{
+
 	private boolean hasPromo;
 	private BigDecimal discount;
 	
