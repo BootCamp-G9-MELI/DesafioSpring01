@@ -2,11 +2,11 @@
 
 Integrantes:
 
-- [ElvisNogueiraMELI](github.com/ElvisNogueiraMELI) :nerd_face:	
-- [rhames07](github.com/rhames07) :sunglasses:
-- [UlyssesMELI](github.com/UlyssesMELI) :roll_eyes:	
-- [vitorLSoares](github.com/vitorLSoares) :cow:
-- [ygorrodriguesmeli](github.com/ygorrodriguesmeli) :man_technologist:	
+- [ElvisNogueiraMELI](https://github.com/ElvisNogueiraMELI) :nerd_face:	
+- [rhames07](https://github.com/rhames07) :sunglasses:
+- [UlyssesMELI](https://github.com/UlyssesMELI) :roll_eyes:	
+- [vitorLSoares](https://github.com/vitorLSoares) :cow:
+- [ygorrodriguesmeli](https://github.com/ygorrodriguesmeli) :man_technologist:	
 
 ## Teste no Postman
 
